@@ -74,6 +74,12 @@ class UploadCommand(Command):
     description = 'Build and publish the package.'
     user_options = []
 
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
     @staticmethod
     def status(s):
         """Prints things in bold."""
@@ -93,7 +99,7 @@ class UploadCommand(Command):
         os.system('{0} setup.py sdist bdist_wheel --universal'.format(sys.executable))
 
         self.status('Uploading the package to pypi via Twine…')
-        os.system('{executable} -m twine upload dist/* '.format(sys.executable))
+        os.system('{0} -m twine upload dist/* '.format(sys.executable))
 
         sys.exit()
 
