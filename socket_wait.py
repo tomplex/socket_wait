@@ -3,26 +3,29 @@ socket_wait will block execution, listening on the provided socket until a conne
 It will then exit, without processing the data sent. It mostly provides a simple way for one process to call back to
 another.
 """
-from __future__ import print_function
+from __future__ import print_function, with_statement
 
 import socket
 import sys
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 def wait(listen_port):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        try:
-            sock.bind(('0.0.0.0', listen_port))
-        except OSError:
-            print("Port is already in use.")
-            sys.exit(1)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        sock.listen()
-        conn, addr = sock.accept()
-        with conn:
-            print("connected by", ':'.join(map(str, addr)) + '.', 'exiting...')
+    try:
+        sock.bind(('0.0.0.0', listen_port))
+    except OSError:
+        print("Port is already in use.")
+        sys.exit(1)
+
+    sock.listen(0)
+    conn, addr = sock.accept()
+    print("connected by", ':'.join(map(str, addr)) + '.', 'exiting...')
+
+    conn.close()
+    sock.close()
 
 
 def cli():
