@@ -112,7 +112,7 @@ setup(
     author_email=EMAIL,
     url=URL,
     py_modules=['socket_wait'],
-    include_package_data=False,
+    include_package_data=True,
     # If your package has a CLI component, specify it in entry_points.
     # for example, if you want it to be called like "mycli" from the command line, and the command line entry
     # point lives in the somepackage/cli.py file, in the function main, you'd construct it like this:

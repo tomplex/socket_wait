@@ -8,7 +8,7 @@ from __future__ import print_function, with_statement
 import socket
 import sys
 
-__version__ = '0.1.1'
+__version__ = '0.1.2'
 
 
 def wait(listen_port):
